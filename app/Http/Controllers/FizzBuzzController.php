@@ -37,32 +37,63 @@ class FizzBuzzController extends Controller
             ->json($fizzbuzz);
     }
 
-    public function pola()
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @noinspection PhpUndefinedVariableInspection
+     */
+    public function pola(Request $request): JsonResponse
     {
         /*
          * Diketahui, sebuah deret bilangan.
-Deret 1 => 1
-Deret 2 => 1 *
-Deret 5 => 1 * 3 4 *
-Deret 14 => 1 * 3 4 * 6 * 8 9 * 11 * 13 14
-buah sebuah fungsi printNumber(input), dengan spesifikasi:
-input bertipe integer positif
-output bertipe string, sesuai dengan contoh di atas
+            Deret 1 => 1
+            Deret 2 => 1 *
+            Deret 5 => 1 * 3 4 *
+            Deret 14 => 1 * 3 4 * 6 * 8 9 * 11 * 13 14
+            buah sebuah fungsi printNumber(input), dengan spesifikasi:
+            input bertipe integer positif
+            output bertipe string, sesuai dengan contoh di atas
 
          */
 
-        // 2, 5, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30
+        // 1 * 3 4 * 6 * 8 9 * 11 * 13 14
 
-        $count = 0;
+        $input = 14;
 
-        for ($i = 1; $i <= 30; $i++) {
-            if ($count == 2) {
-                echo $i . ' ';
+        if ($request->filled('int')) {
+            $input = $request->int;
+        }
 
-                $count = 2;
-            } else {
-                echo '* ';
+        $result = [];
+
+        $key = 0;
+
+        for ($i = 2; $i <= $input; $i++) {
+            $i--;
+            for ($j = 0; $j <= 4; $j++) {
+                $result[$key][] = $i;
+                $i++;
+
+                if ($i > $input) {
+                    break;
+                }
+            }
+            $key++;
+        }
+
+        foreach ($result as $value) {
+            foreach ($value as $item => $val) {
+                if ($item == 1 || $item == 4) {
+                    $final[] = '*';
+                } else {
+                    $final[] = $val;
+                }
             }
         }
+        
+        $final = implode(' ', $final);
+
+        return response()
+            ->json($final);
     }
 }

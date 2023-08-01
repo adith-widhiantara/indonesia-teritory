@@ -94,11 +94,15 @@ class IndonesiaTeritoryController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param $village
+     * @return JsonResponse
      */
-    public function update(Request $request, $village)
+    public function update(Request $request, $village): JsonResponse
     {
         $request->validate([
-            'code' => ['required', 'string'],
+            'code' => ['required', 'string', 'unique:indonesia_villages,code,' . $village . ',id'],
             'district_code' => ['required', 'string', 'exists:indonesia_districts,code'],
             'name' => ['required', 'string'],
             'lat' => ['nullable', 'numeric'],

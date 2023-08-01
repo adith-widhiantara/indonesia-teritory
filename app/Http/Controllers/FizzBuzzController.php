@@ -36,4 +36,33 @@ class FizzBuzzController extends Controller
         return response()
             ->json($fizzbuzz);
     }
+
+    public function pola()
+    {
+        /*
+         * Diketahui, sebuah deret bilangan.
+Deret 1 => 1
+Deret 2 => 1 *
+Deret 5 => 1 * 3 4 *
+Deret 14 => 1 * 3 4 * 6 * 8 9 * 11 * 13 14
+buah sebuah fungsi printNumber(input), dengan spesifikasi:
+input bertipe integer positif
+output bertipe string, sesuai dengan contoh di atas
+
+         */
+
+        // 2, 5, 7, 10, 12, 15, 17, 20, 22, 25, 27, 30
+
+        $count = 0;
+
+        for ($i = 1; $i <= 30; $i++) {
+            if ($count == 2) {
+                echo $i . ' ';
+
+                $count = 2;
+            } else {
+                echo '* ';
+            }
+        }
+    }
 }

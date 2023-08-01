@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('fizzbuzz', [FizzBuzzController::class, 'fizzbuzz']);
+
+Route::get('pola', [FizzBuzzController::class, 'pola']);
